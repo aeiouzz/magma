@@ -1,23 +1,20 @@
 function loco() {
   gsap.registerPlugin(ScrollTrigger);
 
-  // Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
-
   const locoScroll = new LocomotiveScroll({
     el: document.querySelector("#main"),
     smooth: true
   });
-  // locoScroll 객체를 생성, 스크롤 관련 동작을 제어하는데 사용된다.
-  // el: document.querySelector("#main") : #main이라는 css선택자로 해당하는 html 요소를 스크롤 컨테이너로 지정한다. #main영역이 locomotiveScroll이 적용되는 범위이다.
+ 
 
   locoScroll.on("scroll", ScrollTrigger.update);
-  // locomotiveScroll 이벤트가 발생할 때마다 스크롤트리거의 업데이트 함수를 호출한다. 이것은 스크롤 이벤트와 스크롤트리거 간의 연동을 설정합니다.
+
 
 
   ScrollTrigger.scrollerProxy("#main", {
     scrollTop(value) {
       return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
-    }, // scrolltrigger의 스크롤 프록시(스크롤에 대한 인터페이스를 제어, 조작)를 설정한다. 이 부분은 scrolltrigger가 locomotiveScroll와 함께 작동하도록 만들었다. 
+    }, 
 
     getBoundingClientRect() {
       return {
@@ -25,27 +22,36 @@ function loco() {
         left: 0,
         width: window.innerWidth,
         height: window.innerHeight
-      }; // 뷰포트의 크기를 반환하는 getBoundingClientRect() 함수를 정의함
+      }; 
     },
 
     pinType: document.querySelector("#main").style.transform ? "transform" : "fixed"
-  }); // pinType은 #mian 요소의 스타일 속성 transform이 설정되어 있으면 transform으로, 그렇지 않으면 fixed로 설정함
-
+  });
 
   ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 
-  // "refresh" 이벤트를 감지하면 locoScroll.update() 함수를 호출하여 LocomotiveScroll을 업데이트한다. 스크롤 컨테이너나 내용이 동적으로 변경될 때 사용된다.
+ 
 
   ScrollTrigger.refresh();
 }
-loco()
-//---------------------------------------------
+
+loco();
+
+function scrollToTop() {
+  window.scrollTo(0, 0);
+}
+
+window.onload = function() {
+
+  setTimeout(scrollToTop, 10);
+};
+
 
 
 // 📍page2
 let clutter = "";
 
-//.textContent --> 텍스트 콘텐츠을 가져온다
+
 let page2_h2 = document.querySelector('#page2>h2').textContent.split("");
 page2_h2.forEach((dets) => {
   clutter += `<span>${dets}</span>`;
@@ -196,7 +202,7 @@ function canvas() {
   images[1].onload = render;
 
   function render() {
-    //console.log(imageSeq)
+
     scaleImage(images[imageSeq.frame], context);
   }
 
@@ -221,7 +227,6 @@ function canvas() {
     );
   }
 
-
   ScrollTrigger.create({
 
     trigger: "#page3",
@@ -237,7 +242,6 @@ canvas()
 // 📍 page4
 let clutter2 = "";
 
-//.textContent --> 텍스트 콘텐츠을 가져온다
 let page4_h2 = document.querySelector('#page4>h2').textContent.split("");
 page4_h2.forEach((dets) => {
   clutter2 += `<span>${dets}</span>`;
@@ -255,7 +259,6 @@ gsap.to("#page4>h2>span", {
   stagger: 0.2,
   color: "#fff"
 })
-
 
 gsap.to("#page4>.background", {
   scrollTrigger: {
@@ -358,23 +361,23 @@ function canvas5() {
   console.log(images)
 
   gsap.to(imageSeq, {
-    frame: frameCount - 1, // 마지막 프레임의 index 번호
-    snap: "frame", // "frame"은 프레임 단위로 값을 맞추겠다는 의미
+    frame: frameCount - 1, 
+    snap: "frame", 
     ease: `none`,
     scrollTrigger: {
       scrub: .5,
       trigger: `#page5`,
       start: `top top`,
       end: `250% top`,
-      scroller: `#main`, // 스크롤을 감지하는 컨테이너 엘리먼트
+      scroller: `#main`, 
     },
-    onUpdate: render, // gsap.to가 변할 때마다 업데이트가 일어남
+    onUpdate: render,
   });
 
   images[1].onload = render;
 
   function render() {
-    //console.log(imageSeq)
+
     scaleImage(images[imageSeq.frame], context);
   }
 
@@ -412,7 +415,7 @@ canvas5()
 // 📍 page6
 let clutter3 = "";
 
-//.textContent --> 텍스트 콘텐츠을 가져온다
+
 let page6_h2 = document.querySelector('#page6>h2').textContent.split("");
 page6_h2.forEach((dets) => {
   clutter3 += `<span>${dets}</span>`;
@@ -603,23 +606,23 @@ function canvas7() {
   console.log(images)
 
   gsap.to(imageSeq, {
-    frame: frameCount - 1, // 마지막 프레임의 index 번호 
-    snap: "frame", // "frame"은 프레임 단위로 값을 맞추겠다는 의미
+    frame: frameCount - 1,
+    snap: "frame", 
     ease: `none`,
     scrollTrigger: {
       scrub: .5,
       trigger: `#page7`,
       start: `top top`,
       end: `250% top`,
-      scroller: `#main`, // 스크롤을 감지하는 컨테이너 엘리먼트
+      scroller: `#main`, 
     },
     onUpdate: render,
   });
 
-  images[1].onload = render; // gsap.to가 변할 때마다 업데이트가 일어남
+  images[1].onload = render; 
 
   function render() {
-    //console.log(imageSeq)
+ 
     scaleImage(images[imageSeq.frame], context);
   }
 
@@ -672,7 +675,7 @@ gsap.to(".page7-cir", {
     scrub: 0.5
   },
   scale: 1.5,
-  //circle이 커지고 난뒤 할일
+
   onComplete: () => {
     gsap.to(".page7-cir", {
       scrollTrigger: {
@@ -689,7 +692,6 @@ gsap.to(".page7-cir", {
 })
 
 
-
 gsap.to(".page7-cir-inner", {
   scrollTrigger: {
     trigger: `.page7-cir-inner`,
@@ -700,8 +702,6 @@ gsap.to(".page7-cir-inner", {
   },
   backgroundColor: `#0a3bce91`,
 })
-
-
 
 
 // 📍 page8
@@ -716,7 +716,6 @@ gsap.to("#page8", {
 
 })
 
-// 글자 자르기
 let clutter4 = "";
 
 document.querySelector("#page8 h2").textContent.split("").forEach(function (dets) {
@@ -867,23 +866,23 @@ function canvas11() {
   console.log(images)
 
   gsap.to(imageSeq, {
-    frame: frameCount - 1, // 마지막 프레임의 index 번호 
-    snap: "frame", // "frame"은 프레임 단위로 값을 맞추겠다는 의미
+    frame: frameCount - 1,  
+    snap: "frame", 
     ease: `none`,
     scrollTrigger: {
       scrub: .2,
       trigger: `#page11 .mg-roadmap-right`,
       start: `top top`,
       end: `bottom 80%`,
-      scroller: `#main`, // 스크롤을 감지하는 컨테이너 엘리먼트
+      scroller: `#main`, 
     },
     onUpdate: render,
   });
 
-  images[1].onload = render; // gsap.to가 변할 때마다 업데이트가 일어남
+  images[1].onload = render;
 
   function render() {
-    //console.log(imageSeq)
+
     scaleImage(images[imageSeq.frame], context);
   }
 
@@ -918,7 +917,7 @@ function canvas11() {
 canvas11()
 
 
-//sticky영역의 left
+// 📍 sticky영역의 left
 let mgi = document.querySelectorAll('.mg-roadmap-item');
 mgi.forEach((item)=>{
   let item_count=item.querySelector('mg-roadmap-count');
@@ -938,8 +937,7 @@ mgi.forEach((item)=>{
 })
 
 
-
-  //전체 background
+// 📍 전체 background
   gsap.fromTo("#main",{backgroundColor:"#093dcc"},{
     scrollTrigger:{
         trigger:"#page9",
@@ -950,5 +948,3 @@ mgi.forEach((item)=>{
     },
     backgroundColor:"#03268e"
   })
-
-  let 
